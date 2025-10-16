@@ -1,0 +1,15 @@
+🌿 Carbon Footprint Calculator
+
+Enter your data below to estimate emissions and see a visualization.
+
+Transport distance (km)  Electricity usage (kWh)  Flight hours   Calculate
+Recent history
+
+{% if history and history|length > 0 %} {% for row in history %} {% endfor %}
+Transport (km)	Electricity (kWh)	Flight (hours)	Total (kg CO₂)	Timestamp
+{{ row.transport_km }}	{{ row.electricity_kwh }}	{{ row.flight_hours }}	{{ "%.2f"|format(row.total_emissions_kg) }}	{{ row.timestamp }}
+{% else %}
+No history yet — be the first to calculate!
+
+{% endif %}
+Built by Mahima, Maulik & Andre • Flask + Pandas + Matplotlib
