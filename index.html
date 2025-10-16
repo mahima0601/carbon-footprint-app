@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Carbon Footprint Calculator</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>🌿 Carbon Footprint Calculator</h1>
+      <p>Enter your data below to estimate emissions and see a visualization.</p>
+
+      <form action="/calculate" method="POST" class="card">
+        <label>Transport distance (km) <input name="transport_km" type="number" step="any" required></label>
+        <label>Electricity usage (kWh) <input name="electricity_kwh" type="number" step="any" required></label>
+        <label>Flight hours <input name="flight_hours" type="number" step="any" required></label>
+        <button type="submit">Calculate</button>
+      </form>
+
+      <h2>Recent history</h2>
+      {% if history and history|length > 0 %}
+      <table>
+        <thead>
+          <tr>
+            <th>Transport (km)</th>
+            <th>Electricity (kWh)</th>
+            <th>Flight (hours)</th>
+            <th>Total (kg CO₂)</th>
+            <th>Timestamp</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in history %}
+            <tr>
+              <td>{{ row.transport_km }}</td>
+              <td>{{ row.electricity_kwh }}</td>
+              <td>{{ row.flight_hours }}</td>
+              <td>{{ "%.2f"|format(row.total_emissions_kg) }}</td>
+              <td>{{ row.timestamp }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p class="muted">No history yet — be the first to calculate!</p>
+      {% endif %}
+
+      <footer>
+        <p>Built by Mahima, Maulik & Andre • Flask + Pandas + Matplotlib</p>
+      </footer>
+    </div>
+  </body>
+</html>

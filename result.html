@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Result — Carbon Footprint</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Result</h1>
+
+      {% if error %}
+        <div class="error">{{ error }}</div>
+      {% else %}
+        <div class="grid">
+          <div class="card">
+            <h3>Breakdown (kg CO₂)</h3>
+            <ul>
+              <li><strong>Transport:</strong> {{ "%.2f"|format(result.transport) }}</li>
+              <li><strong>Electricity:</strong> {{ "%.2f"|format(result.electricity) }}</li>
+              <li><strong>Flight:</strong> {{ "%.2f"|format(result.flight) }}</li>
+              <li class="total"><strong>Total:</strong> {{ "%.2f"|format(result.total) }}</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Chart</h3>
+            {% if chart_url %}
+              <img src="{{ chart_url }}" alt="Breakdown chart" style="max-width:100%;height:auto;">
+            {% else %}
+              <p class="muted">No chart available.</p>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      <p><a href="/">← Back</a></p>
+    </div>
+  </body>
+</html>
